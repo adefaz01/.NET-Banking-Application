@@ -1,0 +1,80 @@
+﻿@model Customer
+
+@{
+    ViewData["Title"] = "Modify Customer";
+}
+
+
+<form asp-action="Modify" class="mt-4">
+
+
+    <div class="form-group row mb-2">
+
+        <input type="hidden" id="CustomerID" name="CustomerID" value="@Model.CustomerID" />
+
+        <label for="Name" class="col-sm-3 col-form-label">Name: </label>
+        <div class="col-sm-9">
+            <input type="text" id="Name" name="Name" value="@Model.Name" class="form-control"/>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="TFN" class="col-sm-3 col-form-label">TFN: </label>
+        <div class="col-sm-9">
+            <input type="text" id="TFN" name="TFN" value="@Model.TFN" class="form-control"/>
+            <span asp-validation-for="TFN" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="Address" class="col-sm-3 col-form-label">Address: </label>
+        <div class="col-sm-9">
+            <input type="text" id="Address" name="Address" value="@Model.Address" class="form-control"/>
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="City" class="col-sm-3 col-form-label">City: </label>
+        <div class="col-sm-9">
+            <input type="text" id="City" name="City" value="@Model.City" class="form-control"/>
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="State" class="col-sm-3 col-form-label">State: </label>
+        <div class="col-sm-9">
+            <input type="text" id="State" name="State" value="@Model.State" class="form-control"/>
+            <span asp-validation-for="State" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="Postcode" class="col-sm-3 col-form-label">Postcode: </label>
+        <div class="col-sm-9">
+            <input type="text" id="Postcode" name="Postcode" value="@Model.Postcode" class="form-control"/>
+            <span asp-validation-for="Postcode" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="Mobile" class="col-sm-3 col-form-label">Mobile: </label>
+        <div class="col-sm-9">
+            <input type="text" id="Mobile" name="Mobile" value="@Model.Mobile" class="form-control"/>
+            <span asp-validation-for="Mobile" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group mt-4 d-flex justify-content-between">
+        <div class="btn btn-outline-primary">
+            <a asp-action="Index" class="text-decoration-none text-reset">Cancel</a>
+        </div>
+        <input type="submit" id="confirm" value="Confirm Details" class="btn btn-primary"/>
+    </div>
+
+
+
+
+</form>

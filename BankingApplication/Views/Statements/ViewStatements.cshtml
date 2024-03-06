@@ -1,0 +1,81 @@
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<Transaction>
+@{
+    ViewData["Title"] = "Transactions";
+
+}
+<div>
+    @if(Model[0].Account.AccountType == "S")
+    {
+        <h1 class="display-4 mb-4 pb-3 border-bottom">Transactions - Account Number @Model[0].AccountNumber (Savings)</h1>
+    }
+    else if(Model[0].Account.AccountType == "C")
+    {
+        <h1 class="display-4 mb-4 pb-3 border-bottom">Transactions - Account Number @Model[0].AccountNumber (Checking)</h1>
+    }
+
+    <h3 class="mb-3">Balance: @($"{Model[0].Account.Balance:C}")</h3>
+    <table class="table">
+        <tr>
+            <th>Transaction ID</th>
+            <th>Transaction Type</th>
+            <th>Account Number</th>
+            <th>Destination Account Number</th>
+            <th>Amount</th>
+            <th>Comment</th>
+            <th>Transaction Time</th>
+        </tr>
+        @foreach(var transaction in Model){
+            <tr>
+                <td class="pt-3 pb-3">@transaction.TransactionID</td>
+                @if (transaction.TransactionType == "B")
+                {
+                    <td class="pt-3 pb-3">BillPay</td>
+                }
+                else if (transaction.TransactionType == "D")
+                {
+                    <td class="pt-3 pb-3">Deposit</td>
+                }
+                else if (transaction.TransactionType == "W")
+                {
+                    <td class="pt-3 pb-3">Withdraw</td>
+                }
+                else if (transaction.TransactionType == "T")
+                {
+                    <td class="pt-3 pb-3">Transfer</td>
+                }
+                else if (transaction.TransactionType == "S")
+                {
+                    <td class="pt-3 pb-3">Service Charge</td>
+                }
+                <td class="pt-3 pb-3">@transaction.AccountNumber</td>
+                <td class="pt-3 pb-3">@transaction.DestinationAccountNumber</td>
+                @if((transaction.TransactionType == "T" && transaction.DestinationAccountNumber is null) || transaction.TransactionType == "D")
+                {
+                    <td class="text-success pt-3 pb-3">@($"{transaction.Amount:C}")</td>
+                }
+                else 
+                {
+                    <td class="text-danger pt-3 pb-3">@($"{transaction.Amount:C}")</td>
+                }
+                <td class="pt-3 pb-3">@transaction.Comment</td>
+                <td class="pt-3 pb-3">@transaction.TransactionTimeUtc.ToLocalTime().ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+            </tr>
+        }
+    </table>
+    <div class="d-flex justify-content-between mt-4">
+        <div>
+            <div class="btn btn-outline-primary">
+                <a asp-action="Index" class="text-decoration-none text-reset">Back to My Statements</a>
+            </div>
+        </div>
+        @Html.PagedListPager(Model, page => Url.Action("ViewStatements", new { page }),
+        new PagedListRenderOptions {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        }) 
+
+    </div>
+</div>

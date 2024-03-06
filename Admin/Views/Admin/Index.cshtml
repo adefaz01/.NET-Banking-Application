@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Customer>
+
+@{
+    ViewData["Title"] = "Admin Page";
+}
+
+
+
+<div>
+
+    <h1 class="display-4 mb-4 pb-3 border-bottom">Customers</h1>
+    <table class="table">
+        <tr>
+            <th>Customer ID</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.CustomerID</td>
+                <td>@customer.Name</td>
+                <td class="d-flex justify-content-center">
+                    <a class="btn btn-primary me-3"
+                       asp-action="Modify" asp-route-id="@customer.CustomerID">Modify</a>
+
+                    @if(customer.Islocked)
+                    {
+                        <a class="btn btn-primary me-3"
+                           asp-action="Unlock" asp-route-id="@customer.CustomerID">Unlock</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary me-3"
+                           asp-action="Lock" asp-route-id="@customer.CustomerID">Lock</a>
+                    }
+                    
+                </td>
+
+
+            </tr>
+        }
+    </table>
+</div>

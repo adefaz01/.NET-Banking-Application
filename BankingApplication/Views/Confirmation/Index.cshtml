@@ -1,0 +1,71 @@
+﻿@model Transaction
+
+@{
+    ViewData["Title"] = "Confirmation";
+}
+
+<h1>
+    @if (Model.TransactionType == "D")
+    {
+        @* <span>Deposit Confirmation</span> *@
+        <h1 class="display-4 mb-4 pb-3 border-bottom">Deposit Confirmation</h1>
+    }
+    else if (Model.TransactionType == "T")
+    {
+        @* <span>Transfer Confirmation</span> *@
+        <h1 class="display-4 mb-4 pb-3 border-bottom">Transfer Confirmation</h1>
+    }
+    else if (Model.TransactionType == "W")
+    {
+        @* <span>Withdrawal Confirmation</span> *@
+        <h1 class="display-4 mb-4 pb-3 border-bottom">Withdraw Confirmation</h1>
+    }
+</h1>
+
+@* <p>Please review the details of your transaction:</p> *@
+<h3 class="mb-3">Please review the details of your transaction:</h3>
+
+<form asp-action="ConfirmTransaction" class="mt-4">
+    <div class="form-group row mb-2">
+        <label for="TransactionType" class="col-sm-3 col-form-label">Transaction Type:</label>
+        <div class="col-sm-9">
+            <input type="text" id="TransactionType" name="TransactionType" value="@Model.TransactionType" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="Amount" class="col-sm-3 col-form-label">Amount:</label>
+        <div class="col-sm-9">
+            <input type="text" id="Amount" name="Amount" value="@Model.Amount" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="AccountNumber" class="col-sm-3 col-form-label">Account Number:</label>
+        <div class="col-sm-9">
+            <input type="text" id="AccountNumber" name="AccountNumber" value="@Model.AccountNumber" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="DestinationAccountNumber" class="col-sm-3 col-form-label">Destination Account Number:</label>
+        <div class="col-sm-9">
+            <input type="text" id="DestinationAccountNumber" name="DestinationAccountNumber" value="@Model.DestinationAccountNumber" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="Comment" class="col-sm-3 col-form-label">Comment:</label>
+        <div class="col-sm-9">
+            <input type="text" id="Comment" name="Comment" value="@Model.Comment" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group mt-4 d-flex justify-content-between">
+        <div class="btn btn-outline-primary">
+            <a asp-controller="Customer" asp-action="Index" class="text-decoration-none text-reset">Cancel</a>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm Transaction</button>
+    </div>
+</form>
+

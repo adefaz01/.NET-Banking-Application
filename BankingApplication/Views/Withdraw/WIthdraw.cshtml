@@ -1,0 +1,48 @@
+@model Account
+@{
+    ViewData["Title"] = "Withdraw";
+}
+
+@if(Model.AccountType == "S")
+{
+    <h1 class="display-4 mb-4 pb-3 border-bottom">Withdraw - Account Number @Model.AccountNumber (Savings)</h1>
+}
+else if(Model.AccountType == "C")
+{
+    <h1 class="display-4 mb-4 pb-3 border-bottom">Withdraw - Account Number @Model.AccountNumber (Checking)</h1>
+}
+
+<h3 class="mb-3">Balance: @($"{Model.Balance:C}")</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Withdraw">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-2">
+                <label for="Amount" class="control-label">Amount</label>
+                <input id="Amount" name="Amount" class="form-control" value="@ViewBag.Amount?.ToString("0.00")"
+                       data-val="true" data-val-number="The field Amount must be a number."
+                       data-val-required="The Amount field is required." />
+                @Html.ValidationMessage("Amount", new { @class = "text-danger" })
+            </div>
+            <div class="form-group mb-2">
+                <label for="Comment" class="control-label">Comment</label>
+                <input id="comment" name="comment" class="form-control" />
+                @Html.ValidationMessage("comment", new { @class = "text-danger" })
+            </div>
+            <div class="form-group mt-4">
+                <input type="submit" value="Withdraw" class="btn btn-primary me-2" />
+                <div class="btn btn-outline-primary">
+                    <a asp-controller="Customer" asp-action="Index" class="text-decoration-none text-reset">Back to Accounts</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    @{
+        /* await Html.RenderPartialAsync("_ValidationScriptsPartial"); */
+    }
+}

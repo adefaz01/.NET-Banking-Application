@@ -1,0 +1,95 @@
+@model List<BillPay>
+
+
+@{
+    ViewData["Title"] = "BillPay";
+}
+
+<div>
+
+    <h1 class="display-4 mb-4 pb-3 border-bottom">Your BillPays</h1>
+        <div class="text-center">
+            <a class="btn btn-primary m-1"
+            asp-action="BillPay">Add BillPay</a>
+            <a class="btn btn-primary m-1"
+            asp-action="Payee">Add Payee</a>
+        </div>
+
+    @if(Model.Any(x => x.FailedPayment == true))
+    {
+        <h3 class="mb-3">Failed Payments</h3>
+        <table class="table mb-4">
+            <tr>
+                <th>Bill Pay ID</th>
+                <th>Account Number</th>
+                <th>Payee ID</th>
+                <th>Amount</th>
+                <th>Scheduled Time</th>
+                <th>Period</th>
+                <th></th>
+            </tr>
+
+            @foreach (var billpays in Model)
+            {
+                @if(billpays.FailedPayment)
+                {
+                    <tr class="text-danger">
+                        <td>@billpays.BillPayID</td>
+                        <td>@billpays.AccountNumber</td>
+                        <td>@billpays.PayeeID</td>
+                        <td>@($"{billpays.Amount:C}")</td>
+                        <td>@billpays.ScheduleTimeUtc.ToLocalTime().ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                        <td>@(billpays.Period == "O" ? "One-off" : "Monthly")</td>
+                        <td> 
+                            <a class="btn btn-danger"
+                                asp-action="CancelBillPay" asp-route-id="@billpays.BillPayID">Mark as read</a>
+                        </td>
+
+                    </tr>
+                }
+            }
+        </table>
+    }
+
+    @if(!Model.Any(x => x.FailedPayment == false))
+    {
+        <div class="text-center mt-4">
+            <p>You do not have any BillPays</p>
+        </div>
+    } 
+    else 
+    {
+        <h3 class="mb-3">BillPays</h3>
+        <table class="table">
+            <tr>
+                <th>Bill Pay ID</th>
+                <th>Account Number</th>
+                <th>Payee ID</th>
+                <th>Amount</th>
+                <th>Scheduled Time</th>
+                <th>Period</th>
+                <th></th>
+            </tr>
+
+            @foreach (var billpays in Model)
+            {
+                @if(billpays.FailedPayment == false)
+                {
+                    <tr>
+                        <td>@billpays.BillPayID</td>
+                        <td>@billpays.AccountNumber</td>
+                        <td>@billpays.PayeeID</td>
+                        <td>@($"{billpays.Amount:C}")</td>
+                        <td>@billpays.ScheduleTimeUtc.ToLocalTime().ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                        <td>@(billpays.Period == "O" ? "One-off" : "Monthly")</td>
+                        <td> 
+                            <a class="btn btn-outline-primary"
+                                asp-action="CancelBillPay" asp-route-id="@billpays.BillPayID">Cancel</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    }
+
+</div>

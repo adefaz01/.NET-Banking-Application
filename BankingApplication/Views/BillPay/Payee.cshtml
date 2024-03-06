@@ -1,0 +1,71 @@
+﻿@model Payee
+
+@{
+    ViewData["Title"] = "Payee";
+}
+
+<h1 class="display-4 mb-4 pb-3 border-bottom">Payee Details</h1>
+
+<form asp-action="Payee" class="mt-4" id="profileForm">
+
+    <div class="form-group row mb-2">
+        <label for="Name" class="col-sm-3 col-form-label">Name: </label>
+        <div class="col-sm-9">
+            <input type="text" id="Name" name="Name" value="@Model.Name" class="form-control"/>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="Address" class="col-sm-3 col-form-label">Address: </label>
+        <div class="col-sm-9">
+            <input type="text" id="Address" name="Address" value="@Model.Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="City" class="col-sm-3 col-form-label">City: </label>
+        <div class="col-sm-9">
+            <input type="text" id="City" name="City" value="@Model.City"  class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="State" class="col-sm-3 col-form-label">State: </label>
+        <div class="col-sm-9">
+            <input type="text" id="State" name="State" value="@Model.State" class="form-control" />
+            <span asp-validation-for="State" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="Postcode" class="col-sm-3 col-form-label">Postcode: </label>
+        <div class="col-sm-9">
+            <input type="text" id="Postcode" name="Postcode" value="@Model.Postcode"  class="form-control" />
+            <span asp-validation-for="Postcode" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="Phone" class="col-sm-3 col-form-label">Phone: </label>
+        <div class="col-sm-9">
+            <input type="text" id="Phone" name="Phone" value="@Model.Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="form-group mt-4 d-flex justify-content-between">
+        <div class="btn btn-outline-primary">
+            <a asp-action="Index" class="text-decoration-none text-reset">Back to BillPay</a>
+        </div>
+        <input type="submit" id="confirm" value="Add Payee Details" class="btn btn-primary"/>
+    </div>
+
+
+
+
+
+ </form>

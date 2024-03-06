@@ -1,0 +1,36 @@
+@model Customer
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4 mb-4 pb-3 border-bottom">Welcome, @Model.Name</h1>
+</div>
+<div>
+    <h3 class="mb-3">Your Accounts</h3>
+    <table class="table">
+        <tr>
+            <th>Account Number</th>
+            <th>Account Type</th>
+            <th>Balance</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach(var account in Model.Accounts) {
+            <tr>
+                <td class="pt-3 pb-3">@account.AccountNumber</td>
+                @if(account.AccountType == "S")
+                {
+                    <td class="pt-3 pb-3">Savings</td>
+                } 
+                else if(account.AccountType == "C")
+                {
+                    <td class="pt-3 pb-3">Checking</td>
+                }
+                <td class="pt-3 pb-3">@($"{account.Balance:C}")</td>
+                <td class="pt-3 pb-3"></td>
+                <td class="pt-3 pb-3"></td>
+            </tr>
+        }
+    </table>
+</div>

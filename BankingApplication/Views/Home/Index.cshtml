@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    var isLoggedIn = Context.Session.GetInt32(nameof(Customer.CustomerID)).HasValue;
+}
+
+<div class="container mt-5">
+    <div class="row align-items-center">
+        <div class="col mt-5">
+            <h1 class="display-4">Most Common Bank of Australia</h1>
+            <p class="mt-3">Welcome to Most Common Bank of Australia (MCBA), an online banking application that meets convenience.</p>
+            <div class="mt-4">
+                @if (isLoggedIn)
+                {
+                    <a class="btn btn-outline-primary" asp-controller="Login" asp-action="Logout">Logout</a>
+                }
+                else
+                {
+                    <a class="btn btn-primary" asp-controller="Login" asp-action="Login">Login</a>
+                }
+            </div>
+            
+        </div>
+        <div class="col mt-5">
+            <img src="~/img/MCBA.jpeg" alt="MCBA Image" class="img-fluid">
+        </div>
+    </div>
+</div>

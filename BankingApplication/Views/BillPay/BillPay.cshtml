@@ -1,0 +1,89 @@
+@model BillPayViewModel
+
+@{
+    var billpay = Model.BillPay;
+    ViewData["Title"] = "BillPay";
+}
+
+<h1 class="display-4 mb-4 pb-3 border-bottom">BillPay Details</h1>
+
+<form asp-action="BillPay" class="mt-4" id="profileForm">
+
+    <div class="form-group row mb-2">
+        <label for="dropdownField" class="col-sm-3 col-form-label">Select an Account Number:</label>
+        <div class="col-sm-9">
+            <select id="dropdownField" name="AccountNumber" class="form-control">
+                @foreach (var accountNumber in Model.accounts)
+                {
+                    <option value="@accountNumber.AccountNumber">@accountNumber.AccountNumber</option>
+                }
+            </select>
+            <span asp-validation-for="BillPay.AccountNumber" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="form-group row mb-2">
+        <label for="dropdownField" class="col-sm-3 col-form-label">Select a Payee:</label>
+        <div class="col-sm-9">
+            @if (Model.Payees != null && Model.Payees.Any())
+            {
+                <select id="dropdownField" name="PayeeID" class="form-control">
+                    @foreach (var payee in Model.Payees)
+                    {
+                        <option value="@payee.PayeeID">@($"{payee.Name} (ID = {payee.PayeeID})")</option>
+                    }
+                </select>
+            }
+            else
+            {
+                <p>No payees in the database.</p>
+                <input type="hidden" name="PayeeID" />
+            }
+            @Html.ValidationMessage("Payee", new { @class = "text-danger" })
+            <span asp-validation-for="BillPay.PayeeID" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="Amount" class="col-sm-3 col-form-label">Amount: </label>
+        <div class="col-sm-9">
+            <input type="text" id="Amount" name="Amount" value="@Model.BillPay.Amount"  class="form-control" />
+            @Html.ValidationMessage("amount", new { @class = "text-danger" })
+
+            <span asp-validation-for="BillPay.Amount" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <label for="ScheduleTimeUtc" class="col-sm-3 col-form-label">Scheduled Time: </label>
+        <div class="col-sm-9">
+            <input type="datetime-local" id="ScheduleTimeUtc" name="ScheduleTimeUtc" value="@Model.BillPay.ScheduleTimeUtc" class="form-control" />
+            <span asp-validation-for=" BillPay.ScheduleTimeUtc" class="text-danger"></span>
+            @Html.ValidationMessage("Date", new { @class = "text-danger" })
+
+        </div>
+    </div>
+
+   <div class="form-group row mb-2">
+        <label for="Period" class="col-sm-3 col-form-label">Period: </label>
+        <div class="col-sm-9">
+            <select id="Period" name="Period" class="form-control">
+                <option value="O">One-time</option>
+                <option value="M">Monthly</option>
+            </select>
+            <span asp-validation-for="BillPay.Period" class="text-danger"></span>
+                @Html.ValidationMessage("period", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group mt-4 d-flex justify-content-between">
+        <div class="btn btn-outline-primary">
+            <a asp-action="Index" class="text-decoration-none text-reset">Back to BillPay</a>
+        </div>
+        <input type="submit" id="confirm" value="Add BillPay" class="btn btn-primary"/>
+    </div>
+
+
+
+ </form>
